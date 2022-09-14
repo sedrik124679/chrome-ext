@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    width: 310px;
+}
+ul {
+    width: 300px;
+    list-style: none;
+}
+ul img {
+    width: 40px;
+}
+ul li {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+ul li:hover {
+    background-color: grey;
+    transition: .2s;
+}
+ul li div {
+    display: flex;
+    flex-direction: column;
+}
