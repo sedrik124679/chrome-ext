@@ -8,7 +8,6 @@ loginBtn.addEventListener('click', async () => {
     if (onEmptyFields) alert('Please, fill all fields')
 
     const correctInfo = await getProjects(domainNameInput.value, emailInput.value, apiKeyInput.value)
-    console.log(correctInfo)
     if (correctInfo.errorMessage) alert('Incorrect data')
 
     localStorage.setItem('apiKey', apiKeyInput.value)
@@ -19,15 +18,16 @@ loginBtn.addEventListener('click', async () => {
 
 async function getProjects(domainName, email, apiKey) {
     try {
-        return fetch(`${domainName.split('.atlassian.net/')[0]}.atlassian.net/rest/api/3/project`, {
+        return fetch(`${domainName.split('.atlassian.net')[0]}.atlassian.net/rest/api/3/project`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization': `Basic c2VkcmlrMTI0Njc5QGdtYWlsLmNvbTp0WW5GeEw2QXpnSTlNUk16WXg0VDM0Qzc=`,
+                'Authorization': `Basic ${btoa(`${email}:${apiKey}`)}`,
             }
         })
             .then(res => res.json())
             .then(project => project)
+            .catch(e => alert('Incorrect data'))
     } catch (error) {
         alert(error)
     }
